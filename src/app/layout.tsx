@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${DMSans.variable} antialiased w-full overflow-hidden bg-white dark:bg-black `}
+        className={`${DMSans.variable} antialiased w-full overflow-x-hidden bg-white dark:bg-black `}
       >
         <AppProvider>
           {/* <Navbar /> */}
