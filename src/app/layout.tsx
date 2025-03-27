@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { DM_Sans } from "next/font/google";
+import {
+  COMPANY_BASE_URL,
+  COMPANY_DESCRIPTION,
+  COMPANY_NAME,
+} from "@/constants/company";
+import { metadataConfig } from "./metadata";
+import AppProvider from "../providers/AppProvider/AppProvider";
+// import Navbar from "@/components/shared/Navbar/Navbar";
+// import Footer from "@/components/shared/Footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,9 +35,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${DMSans.variable} antialiased w-full overflow-hidden bg-white dark:bg-black `}
       >
-        {children}
+        <AppProvider>
+          {/* <Navbar /> */}
+
+          <div className="tracking-tight ">{children}</div>
+
+          {/* <Footer /> */}
+        </AppProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </body>
     </html>
   );
