@@ -17,12 +17,12 @@ const Banner: React.FC<BannerProps> = ({
 }) => {
   return (
     <div
-      className="w-full max-w-[1200px] min-h-[34rem] relative sm:rounded-3xl grid md:grid-cols-2 p-10 "
+      className="w-full max-w-[1200px] min-h-[24rem] relative grid md:grid-cols-2 p-10 "
       style={{ backgroundColor: bgColor }}
     >
-      <div className="h-full flex flex-col justify-center text-white space-y-2 ">
-        <h1 className="text-4xl font-bold ">{title}</h1>
-        <p className="text-lg break-words pr-6 lg:pr-10 text-justify ">
+      <div className="h-full flex flex-col justify-center space-y-2 ">
+        <h1 className="text-4xl font-bold dark:text-neutral-200 ">{title}</h1>
+        <p className="text-lg break-words pr-6 lg:pr-10 text-justify dark:text-neutral-400 ">
           {description}
         </p>
       </div>

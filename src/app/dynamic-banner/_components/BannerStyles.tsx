@@ -11,14 +11,21 @@ const BannerStyles = () => {
   ];
 
   return (
-    <div className="w-full  bg-gray-100 p-6 sm:rounded-2xl shadow-md">
-      <h2 className="text-2xl font-semibold mb-4 ">Banner Styles</h2>
+    <div className="pl-3">
+      <h2 className="text-[22px] font-semibold mb-4 dark:text-neutral-100 ">
+        Banner Style
+      </h2>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "1rem" }}>
+      <div className="grid grid-cols-1 gap-[1rem] ">
         {bannerStyles.map((style, index) => (
-          <div key={index} className="border rounded-lg p-4 bg-white ">
-            <h3 className="text-lg font-semibold ">{style.title}</h3>
-            <p>{style.description}</p>
+          <div
+            key={index}
+            className="border dark:border-dark-200 rounded-lg p-4 bg-white dark:bg-dark-150 "
+          >
+            <h3 className="text-lg font-semibold dark:text-neutral-200 ">
+              {style.title}
+            </h3>
+            <p className="dark:text-neutral-500 ">{style.description}</p>
           </div>
         ))}
       </div>

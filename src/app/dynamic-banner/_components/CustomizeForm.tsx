@@ -2,6 +2,8 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { Input } from "@/components/ui/input";
+// import { Label } from "@/components/ui/label";
 
 const schema = z.object({
   title: z.string().min(3, "Title is too short"),
@@ -44,75 +46,98 @@ const CustomizeForm: React.FC<CustomizeFormProps> = ({
     }
   };
 
-  return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="w-full  bg-gray-100 p-6 sm:rounded-2xl shadow-md"
+  const Label: React.FC<{
+    htmlFor?: string;
+    children: React.ReactNode;
+    className?: string;
+  }> = ({ htmlFor, children, className }) => (
+    <label
+      htmlFor={htmlFor}
+      className={`block font-medium text-base pb-0.5 text-neutral-600 dark:text-neutral-400 ${className}`}
     >
-      <h2 className="text-2xl font-semibold mb-4 ">Customize Banner</h2>
+      {children}
+    </label>
+  );
 
-      <label className="block font-medium text-base pb-0.5 text-neutral-600 ">
-        Banner Title
-      </label>
-      <input
-        {...register("title")}
-        className="w-full border border-gray-300 rounded-md p-2 mb-4 h-12 "
-        placeholder="Enter title"
-      />
+  return (
+    <div className="">
+      <h2 className="text-2xl font-semibold mb-4 dark:text-neutral-200 ">
+        Customize Banner
+      </h2>
 
-      <label className="block font-medium text-base pb-0.5 text-neutral-600 ">
-        Banner Description
-      </label>
-      <textarea
-        {...register("description")}
-        className="w-full border border-gray-300 rounded-md p-2 mb-1 text-sm min-h-[80px] resize-y"
-      />
-      <p className="text-right text-xs">
-        {description?.split(" ").length}/20 words
-      </p>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="pr-3 grid grid-cols-2 gap-6 "
+      >
+        <div className="space-y-4 ">
+          <div className="">
+            <Label htmlFor="title" className="">
+              Title
+            </Label>
+            <Input
+              {...register("title")}
+              className="w-full rounded-md p-2  h-12 outline-none dark:border-dark-300 dark:text-neutral-300 "
+              placeholder="Enter title"
+            />
+          </div>
 
-      <label className="block font-medium text-base pb-0.5 text-neutral-600  mt-4">
-        Banner Image
-      </label>
-      <input
-        type="file"
-        accept="image/*"
-        {...register("image")}
-        className="w-full border-2 border-dotted border-black p-2 rounded-md text-sm"
-      />
+          <div className="">
+            <Label>Banner Description</Label>
+            <textarea
+              {...register("description")}
+              className="w-full border border-gray-300 dark:border-dark-400 rounded-md p-2.5 text-base min-h-[200px] resize-y dark:text-neutral-400"
+            />
+            <p className="text-right text-xs dark:text-neutral-400 ">
+              {description?.split(" ").length}/20 words
+            </p>
+          </div>
+        </div>
 
-      <label className="block font-medium text-base pb-0.5 text-neutral-600  mt-4">
-        Background Colour
-      </label>
-      <div className="flex items-center border border-gray-300 rounded-md overflow-hidden w-56">
-        <Controller
-          control={control}
-          name="bgColor"
-          render={({ field }) => (
-            <>
-              <input
-                type="color"
-                {...field}
-                className="w-16 h-10 border-none cursor-pointer"
+        <div className="space-y-4 ">
+          <div className="">
+            <Label>Banner Image</Label>
+            <input
+              type="file"
+              accept="image/*"
+              {...register("image")}
+              className="w-full border-2 border-dotted border-black dark:border-dark-400 dark:text-neutral-300 p-2 rounded-md text-sm file:h-9 "
+            />
+          </div>
+
+          <div className="">
+            <Label>Background Colour</Label>
+            <div className="flex items-center border dark:border-dark-300 h-12 rounded-md overflow-hidden w-full ">
+              <Controller
+                control={control}
+                name="bgColor"
+                render={({ field }) => (
+                  <>
+                    <input
+                      type="color"
+                      {...field}
+                      className="w-12 h-12 rounded-lg border-none cursor-pointer"
+                    />
+                    <input
+                      type="text"
+                      value={field.value}
+                      readOnly
+                      className="flex-1 text-start text-base p-2 h-12 dark:text-neutral-300 "
+                    />
+                  </>
+                )}
               />
-              <input
-                type="text"
-                value={field.value}
-                readOnly
-                className="flex-1 text-center text-sm p-2"
-              />
-            </>
-          )}
-        />
-      </div>
+            </div>
+          </div>
+        </div>
 
-      <button
+        {/* <button
         type="submit"
         className="mt-6 w-full bg-black h-14 text-lg font-semibold text-white py-2 px-4 rounded-md hover:bg-blue-700"
       >
         Update
-      </button>
-    </form>
+      </button> */}
+      </form>
+    </div>
   );
 };
 

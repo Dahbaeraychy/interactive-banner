@@ -12,11 +12,12 @@ import {
   SheetTitle,
 } from "@/components/ui/sheet";
 import Form from "./_components/Form";
+import Link from "next/link";
 
 const Page = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="max-w-[84rem] w-full mx-auto p-6 lg:p-10">
+    <div className="max-w-[84rem] w-full mx-auto p-6 lg:p-10 space-y-8 ">
       <div className="relative h-[75vh] w-full font-sans rounded-3xl overflow-hidden border border-neutral-800 ">
         <div className="relative w-full h-[40%] ">
           <Image
@@ -77,6 +78,12 @@ const Page = () => {
           </SheetContent>
         </Sheet>
       </div>
+
+      <Link className="inline-block" href="/dynamic-banner">
+        <button className="h-12 w-[12rem] bg-[#2F2F2F] text-white font-medium font-sans rounded-lg ">
+          Dynamic Banner
+        </button>
+      </Link>
     </div>
   );
 };
