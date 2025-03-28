@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -26,11 +26,25 @@ const CustomizeForm: React.FC<CustomizeFormProps> = ({
   defaultValues,
   onUpdate,
 }) => {
-  const { register, handleSubmit, control, watch } = useForm<FormData>({
+  const { register, control, watch, handleSubmit } = useForm<FormData>({
     mode: "onChange",
     defaultValues,
     resolver: zodResolver(schema),
   });
+
+  const formData = watch();
+
+  useEffect(() => {
+    const file = formData.image?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () =>
+        onUpdate({ ...formData, image: reader.result as string });
+      reader.readAsDataURL(file);
+    } else {
+      onUpdate({ ...formData, image: null });
+    }
+  }, [formData, onUpdate]);
 
   const description = watch("description");
 
@@ -100,7 +114,7 @@ const CustomizeForm: React.FC<CustomizeFormProps> = ({
               type="file"
               accept="image/*"
               {...register("image")}
-              className="w-full border-2 border-dotted border-black dark:border-dark-400 dark:text-neutral-300 p-2 rounded-md text-sm file:h-9 "
+              className="w-full border-2 border-dotted border-black dark:border-dark-400 dark:text-neutral-300 p-2 rounded-md text-sm file:h-20 "
             />
           </div>
 
@@ -115,13 +129,13 @@ const CustomizeForm: React.FC<CustomizeFormProps> = ({
                     <input
                       type="color"
                       {...field}
-                      className="w-12 h-12 rounded-lg border-none cursor-pointer"
+                      className="w-12 h-12 rounded-lg !border-none cursor-pointer"
                     />
-                    <input
+                    <Input
                       type="text"
                       value={field.value}
                       readOnly
-                      className="flex-1 text-start text-base p-2 h-12 dark:text-neutral-300 "
+                      className="flex-1 text-start text-base p-2 h-12 dark:text-neutral-300 dark:border-dark-300 "
                     />
                   </>
                 )}

@@ -27,13 +27,13 @@ const Banner: React.FC<BannerProps> = ({
         </p>
       </div>
 
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center relative ">
         <Image
           src={image || "/mk.svg"}
           alt="Banner"
           width={500}
           height={500}
-          className="absolute top-2 right-10 max-h-[250px] max-w-[500px] object-contain z-20"
+          className="max-h-[250px] max-w-[500px] object-contain z-20"
         />
       </div>
     </div>

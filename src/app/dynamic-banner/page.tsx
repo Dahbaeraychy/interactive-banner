@@ -19,7 +19,7 @@ export default function BannerPage() {
   return (
     <main className="max-w-[1200px] mx-auto w-full space-y-10 font-sans sm:p-10 ">
       <Banner {...formData} />
-      <div className="grid lg:grid-cols-3 w-full bg-neutral-100 dark:bg-dark-150 p-6 lg:py-12 divide-x-2 dark:divide-dark-300 ">
+      <div className="grid lg:grid-cols-3 w-full bg-neutral-100 dark:bg-dark-150 p-6 lg:py-12 divide-x-2 dark:divide-dark-200 ">
         <div className="col-span-2">
           <CustomizeForm defaultValues={formData} onUpdate={setFormData} />
         </div>
