@@ -2,7 +2,7 @@
 import React from "react";
 import { FaCameraRetro, FaFireAlt, FaRegLightbulb } from "react-icons/fa";
 
-const BannerStyles = () => {
+const BannerStyles = ({ onClick }: { onClick: () => void }) => {
   const bannerStyles = [
     {
       icon: <FaCameraRetro className="text-3xl dark:text-neutral-400" />,
@@ -24,8 +24,8 @@ const BannerStyles = () => {
   const [selectedStyle, setSelectedStyle] = React.useState(0);
 
   return (
-    <div className="pl-3">
-      <h2 className="text-[22px] font-semibold mb-4 dark:text-neutral-100 ">
+    <div className="pl-3 space-y-4 flex flex-col">
+      <h2 className="text-2xl font-semibold mb-4 dark:text-neutral-100 ">
         Banner Style
       </h2>
 
@@ -49,6 +49,17 @@ const BannerStyles = () => {
             </div>
           </button>
         ))}
+      </div>
+
+      <div className="pt-2 border-t dark:border-dark-300 border-neutral-200">
+        <button
+          onClick={onClick}
+          className="w-full dark:bg-dark-150 bg-white dark:text-neutral-200 text-neutral-900  p-4 hover:bg-neutral-100 dark:hover:bg-dark-300 transition-all duration-300 ease-in-out flex items-center justify-center space-x-2"
+        >
+          <span className="font-[600] font-sans text-lg dark:text-white ">
+            Download Banner
+          </span>
+        </button>
       </div>
     </div>
   );

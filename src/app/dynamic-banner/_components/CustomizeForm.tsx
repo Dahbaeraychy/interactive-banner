@@ -1,9 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Input } from "@/components/ui/input";
-// import { Label } from "@/components/ui/label";
+import { ColorPicker } from "@/components/ui/color-picker";
+import FileUpload from "@/components/shared/FileUpload/FileUpload";
 
 const schema = z.object({
   title: z.string().min(3, "Title is too short"),
@@ -22,134 +24,145 @@ interface CustomizeFormProps {
   onUpdate: (data: FormData) => void;
 }
 
+const Label: React.FC<{
+  htmlFor?: string;
+  children: React.ReactNode;
+  className?: string;
+}> = ({ htmlFor, children, className }) => (
+  <label
+    htmlFor={htmlFor}
+    className={`block font-medium text-base pb-0.5 text-neutral-600 dark:text-neutral-400 ${className}`}
+  >
+    {children}
+  </label>
+);
+
 const CustomizeForm: React.FC<CustomizeFormProps> = ({
   defaultValues,
   onUpdate,
 }) => {
-  const { register, control, watch, handleSubmit } = useForm<FormData>({
+  const {
+    register,
+    control,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<FormData>({
     mode: "onChange",
     defaultValues,
     resolver: zodResolver(schema),
   });
 
-  const formData = watch();
+  const values = useWatch({ control });
+
+  const color = watch("bgColor");
+
+  const buttonRef = React.useRef<HTMLButtonElement>(undefined!);
 
   useEffect(() => {
-    const file = formData.image?.[0];
+    const rawImage = values.image;
+
+    const isFileList = rawImage instanceof FileList;
+    const isFile = rawImage instanceof File;
+
+    const file = isFileList ? rawImage[0] : isFile ? rawImage : null;
+
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () =>
-        onUpdate({ ...formData, image: reader.result as string });
+      reader.onloadend = () => {
+        onUpdate({
+          title: values.title || "",
+          description: values.description || "",
+          bgColor: values.bgColor || "",
+          image: reader.result,
+        });
+      };
       reader.readAsDataURL(file);
-    } else {
-      onUpdate({ ...formData, image: null });
+    } else if (
+      typeof rawImage === "string" ||
+      rawImage === null ||
+      rawImage === undefined
+    ) {
+      // Accept base64 or null
+      onUpdate({
+        title: values.title || "",
+        description: values.description || "",
+        bgColor: values.bgColor || "",
+        image: rawImage,
+      });
     }
-  }, [formData, onUpdate]);
-
-  const description = watch("description");
-
-  const onSubmit = (data: FormData) => {
-    const file = data.image?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () =>
-        onUpdate({ ...data, image: reader.result as string });
-      reader.readAsDataURL(file);
-    } else {
-      onUpdate({ ...data, image: null });
-    }
-  };
-
-  const Label: React.FC<{
-    htmlFor?: string;
-    children: React.ReactNode;
-    className?: string;
-  }> = ({ htmlFor, children, className }) => (
-    <label
-      htmlFor={htmlFor}
-      className={`block font-medium text-base pb-0.5 text-neutral-600 dark:text-neutral-400 ${className}`}
-    >
-      {children}
-    </label>
-  );
+  }, [values.title, values.description, values.bgColor, values.image]);
 
   return (
-    <div className="">
-      <h2 className="text-2xl font-semibold mb-4 dark:text-neutral-200 ">
+    <div>
+      <h2 className="text-2xl font-semibold mb-4 dark:text-neutral-200">
         Customize Banner
       </h2>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="pr-3 grid grid-cols-2 gap-6 "
-      >
-        <div className="space-y-4 ">
-          <div className="">
-            <Label htmlFor="title" className="">
-              Title
-            </Label>
+      <form className="pr-3 grid grid-cols-2 gap-6">
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor="title">Banner Title</Label>
             <Input
               {...register("title")}
-              className="w-full rounded-md p-2  h-12 outline-none dark:border-dark-300 dark:text-neutral-300 "
+              id="title"
+              className="w-full rounded-md p-2 h-12 outline-none dark:border-dark-300 dark:text-neutral-300"
               placeholder="Enter title"
             />
+            {errors.title && (
+              <p className="text-sm text-red-500 mt-1">
+                {errors.title.message}
+              </p>
+            )}
           </div>
 
-          <div className="">
-            <Label>Banner Description</Label>
+          <div>
+            <Label htmlFor="description">Banner Description</Label>
             <textarea
               {...register("description")}
-              className="w-full border border-gray-300 dark:border-dark-400 rounded-md p-2.5 text-base min-h-[200px] resize-y dark:text-neutral-400"
+              id="description"
+              className="w-full h-60 border border-gray-300 dark:border-dark-400 rounded-md p-2.5 text-base resize-y dark:text-neutral-400 focus-visible:outline-none  dark:bg-dark-200"
             />
-            <p className="text-right text-xs dark:text-neutral-400 ">
-              {description?.split(" ").length}/20 words
+            <p className="text-right text-xs dark:text-neutral-400">
+              {values.description?.split(" ").length || 0}/20 words
             </p>
           </div>
         </div>
 
-        <div className="space-y-4 ">
-          <div className="">
-            <Label>Banner Image</Label>
-            <input
-              type="file"
-              accept="image/*"
-              {...register("image")}
-              className="w-full border-2 border-dotted border-black dark:border-dark-400 dark:text-neutral-300 p-2 rounded-md text-sm file:h-20 "
-            />
-          </div>
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor="bgColor">Background Colour</Label>
+            <div className="flex items-end space-x-3 ">
+              <Input
+                type="text"
+                id="bgColor"
+                aria-label="Background Color"
+                onFocus={() => buttonRef.current?.click()}
+                required
+                placeholder="#000000"
+                {...register("bgColor")}
+                className="h-12 w-full font-[500] !text-[18px] dark:text-neutral-300 dark:border-dark-300 rounded-md p-2 outline-none"
+              />
 
-          <div className="">
-            <Label>Background Colour</Label>
-            <div className="flex items-center border dark:border-dark-300 h-12 rounded-md overflow-hidden w-full ">
-              <Controller
-                control={control}
-                name="bgColor"
-                render={({ field }) => (
-                  <>
-                    <input
-                      type="color"
-                      {...field}
-                      className="w-12 h-12 rounded-lg !border-none cursor-pointer"
-                    />
-                    <Input
-                      type="text"
-                      value={field.value}
-                      readOnly
-                      className="flex-1 text-start text-base p-2 h-12 dark:text-neutral-300 dark:border-dark-300 "
-                    />
-                  </>
-                )}
+              <ColorPicker
+                onChange={(color) => {
+                  setValue("bgColor", color, {
+                    shouldValidate: true,
+                  });
+                }}
+                buttonRef={buttonRef}
+                value={color}
               />
             </div>
           </div>
+
+          <div>
+            <Label htmlFor="image">Banner Image</Label>
+            <FileUpload register={register} />
+          </div>
         </div>
 
-        {/* <button
-        type="submit"
-        className="mt-6 w-full bg-black h-14 text-lg font-semibold text-white py-2 px-4 rounded-md hover:bg-blue-700"
-      >
-        Update
-      </button> */}
+        {/*  */}
       </form>
     </div>
   );
