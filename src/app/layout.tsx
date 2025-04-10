@@ -2,14 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { DM_Sans } from "next/font/google";
 import {
-  COMPANY_BASE_URL,
-  COMPANY_DESCRIPTION,
-  COMPANY_NAME,
+  WEBSITE_BASE_URL,
+  WEBSITE_DESCRIPTION,
+  WEBSITE_NAME,
 } from "@/constants/company";
 import { metadataConfig } from "./metadata";
 import AppProvider from "../providers/AppProvider/AppProvider";
-// import Navbar from "@/components/shared/Navbar/Navbar";
-// import Footer from "@/components/shared/Footer/Footer";
 
 const DMSans = DM_Sans({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -30,9 +28,9 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org/",
     "@type": "Website",
-    name: COMPANY_NAME,
-    url: COMPANY_BASE_URL,
-    description: COMPANY_DESCRIPTION,
+    name: WEBSITE_NAME,
+    url: WEBSITE_BASE_URL,
+    description: WEBSITE_DESCRIPTION,
   };
 
   return (

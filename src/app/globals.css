@@ -3,11 +3,21 @@
 
 @custom-variant dark (&:is(.dark *));
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
 @theme inline {
   --font-sans: var(--font-dm-sans);
+
+  --color-dark: #000000;
+  --color-dark-100: #121212;
+  --color-dark-150: #1E1E1E;
+  --color-dark-200: #2E2E2E;
+  --color-dark-300: #333333;
+  --color-dark-400: #4F4F4F;
+  --color-dark-500: #828282;
+  --color-dark-600: #BDBDBD;
 }
