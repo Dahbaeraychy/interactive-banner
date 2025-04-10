@@ -1,6 +1,6 @@
-# Phabricator Wikimedia Banner Component
+# Interactive Banner For Outreachy Contribution
 
-This repository contains a React-based banner component system designed for Wikimedia projects. The banners are highly customizable and support multiple styles, including **Minimal**, **Modern**, and **Retro**. The project is built using **Next.js** and includes features like dynamic styling and a color picker for real-time customization.
+This repository contains the code for an interactive banner designed for Wikimedia Outreachy 2025. The banners are highly customizable and support multiple styles, including **Minimal**, **Modern**, and **Retro**. The project is built using **Next.js** and includes features like dynamic styling and a color picker for real-time customization.
 
 ---
 
@@ -32,8 +32,8 @@ This repository contains a React-based banner component system designed for Wiki
 ## Installation and Development
 
 1. Clone the repository:
-   `git clone https://github.com/your-username/phabricator-wikimedia.git`
-   `cd phabricator-wikimedia`
+   `git clone https://github.com/Dahbaeraychy/interactive-banner.git`
+   `cd interactive-banner`
 
 2. Install dependencies:
    `yarn`
@@ -108,10 +108,10 @@ This project is licensed under the MIT License.
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
-We also encourage you to submit new banner styles! If you have a creative idea for a new banner design, feel free to contribute by adding a new style to the `Banner` component. Make sure to include proper documentation and examples for your new style.
+You are also welcome to submit new banner styles! If you have a creative idea for a new banner design, feel free to contribute by adding a new style to the `Banner` component. Make sure to include proper documentation and examples for your new style.
 
 ---
 
 ## Contact
 
-For questions or support, please contact your-email@example.com.
+For questions or support, please contact [Linkedin](https://www.linkedin.com/in/okoriedaberechi/).
