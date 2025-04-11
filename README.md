@@ -1,6 +1,6 @@
 # Interactive Banner For Outreachy Contribution
 
-This repository contains the code for an interactive banner designed for Wikimedia Outreachy 2025. The banners are highly customizable and support multiple styles, including **Minimal**, **Modern**, and **Retro**. The project is built using **Next.js** and includes features like dynamic styling and a color picker for real-time customization.
+This repository contains a React-based banner component system designed for the contribtion stage of outreachy 2025. The banners are highly customizable and support multiple styles, including **Minimal**, **Modern**, and **Retro**. The project is built using **Next.js** and includes features like dynamic styling and a color picker for real-time customization.
 
 ---
 
