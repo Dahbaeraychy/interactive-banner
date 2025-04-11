@@ -60,21 +60,13 @@ This repository contains a React-based banner component system designed for the 
 
 ## Banner Styles
 
-### Minimal Style
-
-A clean and simple banner with a focus on text content. Use this style for banners that prioritize text clarity and simplicity.
-
-- Title: "Minimal Banner"
-- Description: "A simple and clean banner design."
-- Image: [Replace with your image path]
-
 ### Modern Style
 
 A visually appealing banner with a grid layout and diamond-shaped elements. This style is ideal for banners that include images and dynamic layouts.
 
 - Title: "Modern Banner"
 - Description: "A modern banner with dynamic colors and images."
-- Image: [Replace with your image path]
+- Image: ![Modern Banner](https://raw.githubusercontent.com/Dahbaeraychy/interactive-banner/main/public/banner-1.png)
 
 ### Retro Style
 
@@ -82,7 +74,15 @@ A retro-themed banner with bold typography and horizontal layouts. Use this styl
 
 - Title: "Retro Banner"
 - Description: "A retro-style banner with a unique layout."
-- Image: [Replace with your image path]
+- Image: ![Retro Banner](https://raw.githubusercontent.com/Dahbaeraychy/interactive-banner/main/public/banner-2.png)
+
+### Minimal Style
+
+A clean and simple banner with a focus on text content. Use this style for banners that prioritize text clarity and simplicity.
+
+- Title: "Minimal Banner"
+- Description: "A simple and clean banner design."
+- Image: ![Minimal Banner](https://raw.githubusercontent.com/Dahbaeraychy/interactive-banner/main/public/banner-3.png)
 
 ---
 
