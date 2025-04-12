@@ -1,0 +1,38 @@
+name: Run Tests and Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: 🟢 Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🛠️ Install Vercel CLI
+        run: yarn add vercel -g
+
+      - name: 🧪 Run Jest tests
+        run: |
+          yarn upgrade
+          yarn test:ci
+
+      - name: 📦 Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          vercel pull --yes --environment=production --token=$VERCEL_TOKEN
+          vercel build --prod --token=$VERCEL_TOKEN
+          vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
